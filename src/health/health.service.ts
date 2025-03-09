@@ -1,5 +1,5 @@
-const { Injectable, Logger } = require('@nestjs/common');
-const { Cron } = require('@nestjs/schedule');
+import { Injectable, Logger } from '@nestjs/common';
+import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class HealthService {
@@ -17,5 +17,3 @@ export class HealthService {
     };
   }
 }
-
-module.exports = { HealthService };

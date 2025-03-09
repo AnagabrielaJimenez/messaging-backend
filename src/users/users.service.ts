@@ -1,11 +1,12 @@
-const { Injectable } = require('@nestjs/common');
-const { SupabaseService } = require('../supabase/supabase.service');
+import { Injectable } from '@nestjs/common';
+import { SupabaseService } from '../supabase/supabase.service';
+import { Profile } from '../types/supabase';
 
 @Injectable()
 export class UsersService {
-  constructor(private supabaseService) {}
+  constructor(private supabaseService: SupabaseService) {}
 
-  async findAll(userId) {
+  async findAll(userId: string): Promise<Profile[]> {
     const supabase = this.supabaseService.getClient();
     
     const { data, error } = await supabase
@@ -20,7 +21,7 @@ export class UsersService {
     return data;
   }
 
-  async findById(id) {
+  async findById(id: string): Promise<Profile> {
     const supabase = this.supabaseService.getClient();
     
     const { data, error } = await supabase
@@ -36,7 +37,7 @@ export class UsersService {
     return data;
   }
 
-  async search(query, userId) {
+  async search(query: string, userId: string): Promise<Profile[]> {
     const supabase = this.supabaseService.getClient();
     
     const { data, error } = await supabase
@@ -52,7 +53,7 @@ export class UsersService {
     return data;
   }
 
-  async updateLastSeen(userId) {
+  async updateLastSeen(userId: string): Promise<{ success: boolean }> {
     const supabase = this.supabaseService.getClient();
     
     const { error } = await supabase
@@ -67,5 +68,3 @@ export class UsersService {
     return { success: true };
   }
 }
-
-module.exports = { UsersService };

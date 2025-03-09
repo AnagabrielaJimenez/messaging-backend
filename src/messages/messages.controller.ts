@@ -1,17 +1,17 @@
-const { Controller, Get, Post, Body, Query, Param, Headers, UnauthorizedException } = require('@nestjs/common');
-const { MessagesService } = require('./messages.service');
-const { SupabaseService } = require('../supabase/supabase.service');
-const { CreateMessageDto, PaginationDto } = require('./dto/message.dto');
+import { Controller, Get, Post, Body, Query, Param, Headers, UnauthorizedException } from '@nestjs/common';
+import { MessagesService } from './messages.service';
+import { SupabaseService } from '../supabase/supabase.service';
+import { CreateMessageDto, PaginationDto } from './dto/message.dto';
 
 @Controller('messages')
 export class MessagesController {
   constructor(
-    private messagesService,
-    private supabaseService,
+    private messagesService: MessagesService,
+    private supabaseService: SupabaseService,
   ) {}
 
   // Middleware para verificar el token JWT
-  async validateToken(authHeader) {
+  async validateToken(authHeader: string): Promise<any> {
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       throw new UnauthorizedException('Invalid token');
     }
@@ -30,9 +30,9 @@ export class MessagesController {
 
   @Get(':contactId')
   async findByContact(
-    @Param('contactId') contactId,
-    @Query() paginationDto,
-    @Headers('authorization') authHeader,
+    @Param('contactId') contactId: string,
+    @Query() paginationDto: PaginationDto,
+    @Headers('authorization') authHeader: string,
   ) {
     const user = await this.validateToken(authHeader);
     return this.messagesService.findByContact(
@@ -45,12 +45,10 @@ export class MessagesController {
 
   @Post()
   async create(
-    @Body() createMessageDto,
-    @Headers('authorization') authHeader,
+    @Body() createMessageDto: CreateMessageDto,
+    @Headers('authorization') authHeader: string,
   ) {
     const user = await this.validateToken(authHeader);
     return this.messagesService.create(user.id, createMessageDto);
   }
 }
-
-module.exports = { MessagesController };

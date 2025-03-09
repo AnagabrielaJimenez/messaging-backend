@@ -1,14 +1,12 @@
-const { Controller, Get } = require('@nestjs/common');
-const { HealthService } = require('./health.service');
+import { Controller, Get } from '@nestjs/common';
+import { HealthService } from './health.service';
 
 @Controller('health')
 export class HealthController {
-  constructor(private healthService) {}
+  constructor(private healthService: HealthService) {}
 
   @Get()
   getStatus() {
     return this.healthService.getStatus();
   }
 }
-
-module.exports = { HealthController };

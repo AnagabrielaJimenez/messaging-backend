@@ -1,11 +1,9 @@
-const { Module } = require('@nestjs/common');
-const { HealthService } = require('./health.service');
-const { HealthController } = require('./health.controller');
+import { Module } from '@nestjs/common';
+import { HealthService } from './health.service';
+import { HealthController } from './health.controller';
 
 @Module({
   controllers: [HealthController],
   providers: [HealthService],
 })
-class HealthModule {}
-
-module.exports = { HealthModule };
+export class HealthModule {}

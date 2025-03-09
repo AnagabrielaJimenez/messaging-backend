@@ -1,12 +1,15 @@
+import { IsString, IsOptional } from 'class-validator';
+
 export class UserDto {
-    id;
-    username;
-    avatar_url;
-    status;
-    last_seen;
-  }
-  
+  id: string;
+  username: string;
+  avatar_url?: string;
+  status?: string;
+  last_seen?: string;
+}
+
 export class SearchUserDto {
-   query;
- }
-  
+  @IsString()
+  @IsOptional()
+  query?: string;
+}

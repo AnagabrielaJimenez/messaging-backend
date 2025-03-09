@@ -1,5 +1,5 @@
-const { Module, Global } = require('@nestjs/common');
-const { SupabaseService } = require('./supabase.service');
+import { Module, Global } from '@nestjs/common';
+import { SupabaseService } from './supabase.service';
 
 @Global()
 @Module({

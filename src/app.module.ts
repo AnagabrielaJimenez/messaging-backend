@@ -1,10 +1,10 @@
-const { Module } = require('@nestjs/common');
-const { ConfigModule } = require('@nestjs/config');
-const { ScheduleModule } = require('@nestjs/schedule');
-const { UsersModule } = require('./users/users.module');
-const { MessagesModule } = require('./messages/messages.module');
-const { SupabaseModule } = require('./supabase/supabase.module');
-const { HealthModule } = require('./health/health.module');
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
+import { UsersModule } from './users/users.module';
+import { MessagesModule } from './messages/messages.module';
+import { SupabaseModule } from './supabase/supabase.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -19,4 +19,3 @@ const { HealthModule } = require('./health/health.module');
   ],
 })
 export class AppModule {}
-

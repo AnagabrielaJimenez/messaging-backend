@@ -1,11 +1,21 @@
-const { Injectable } = require('@nestjs/common');
-const { SupabaseService } = require('../supabase/supabase.service');
+import { Injectable } from '@nestjs/common';
+import { SupabaseService } from '../supabase/supabase.service';
+import { Message } from '../types/supabase';
+import { CreateMessageDto } from './dto/message.dto';
 
 @Injectable()
 export class MessagesService {
-  constructor(private supabaseService) {}
+  constructor(private supabaseService: SupabaseService) {}
 
-  async findByContact(userId, contactId, page = 1, limit = 20) {
+  async findByContact(userId: string, contactId: string, page = 1, limit = 20): Promise<{
+    data: Message[];
+    pagination: {
+      total: number;
+      page: number;
+      limit: number;
+      pages: number;
+    };
+  }> {
     const supabase = this.supabaseService.getClient();
     
     // Calcular el offset para la paginación
@@ -37,7 +47,7 @@ export class MessagesService {
     };
   }
 
-  async create(senderId, message) {
+  async create(senderId: string, message: CreateMessageDto): Promise<Message> {
     const supabase = this.supabaseService.getClient();
     
     const { data, error } = await supabase
@@ -58,7 +68,7 @@ export class MessagesService {
     return data[0];
   }
 
-  async markAsRead(userId, contactId) {
+  async markAsRead(userId: string, contactId: string): Promise<{ success: boolean }> {
     const supabase = this.supabaseService.getClient();
     
     const { error } = await supabase
@@ -75,5 +85,3 @@ export class MessagesService {
     return { success: true };
   }
 }
-
-module.exports = { MessagesService };

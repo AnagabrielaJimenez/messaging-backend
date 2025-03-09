@@ -1,11 +1,9 @@
-const { Module } = require('@nestjs/common');
-const { MessagesService } = require('./messages.service');
-const { MessagesController } = require('./messages.controller');
+import { Module } from '@nestjs/common';
+import { MessagesService } from './messages.service';
+import { MessagesController } from './messages.controller';
 
 @Module({
   controllers: [MessagesController],
   providers: [MessagesService],
 })
 export class MessagesModule {}
-
-module.exports = { MessagesModule };
